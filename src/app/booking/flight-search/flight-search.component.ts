@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, model, OnInit, signal } from '@angular/core';
 import { Flight, FlightService } from '@demo/data';
 import { FlightCardComponent } from '../flight-card/flight-card.component';
 import { NgIf, NgFor, JsonPipe } from '@angular/common';
@@ -22,31 +22,28 @@ import { AuthService } from 'src/app/shared/auth.service';
 export class FlightSearchComponent implements OnInit {
   private flightService = inject(FlightService);
 
-  from = 'Hamburg'; // in Germany
-  to = 'Graz'; // in Austria
+  from = model('Hamburg'); // in Germany
+  to = model('Graz'); // in Austria
 
-  flights: Flight[] = [];
+  flights = signal<Flight[]>([]);
 
-  basket: Record<number, boolean> = {
-  };
+  basket = signal<Record<number, boolean>>({});
 
   ngOnInit(): void {}
 
-  search(): void {
+  async search() {
     if (!this.from || !this.to) return;
 
-    this.flightService
-      .find(this.from, this.to)
-      .subscribe((flights) => {
-        this.flights = flights;
-      });
+    this.flights.set(await this.flightService.findWithPromise(this.from(), this.to()));
   }
 
   delay(): void {
-    const flight = this.flights[0];
+    const flight = this.flights()[0];
     const date = new Date(flight.date);
 
     date.setTime(date.getTime() + 1000 * 60 * 15);
     flight.date = date.toISOString();
+
+    this.flights.set([ { ...flight }, ...this.flights().slice(1) ])
   }
 }
