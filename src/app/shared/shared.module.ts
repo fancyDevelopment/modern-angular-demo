@@ -4,8 +4,7 @@ import { CityPipe } from './city.pipe';
 import { CityValidator } from './city.validator';
 
 @NgModule({
-    imports: [CommonModule],
-    declarations: [CityPipe, CityValidator],
+    imports: [CommonModule, CityPipe, CityValidator],
     exports: [CityPipe, CityValidator],
     providers: [],
 })

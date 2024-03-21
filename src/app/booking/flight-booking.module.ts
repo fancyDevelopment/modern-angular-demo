@@ -10,19 +10,17 @@ import { RouterModule } from '@angular/router';
 import FLIGHT_BOOKING_ROUTES from './flight-booking.routes';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    SharedModule,
-    RouterModule.forChild(FLIGHT_BOOKING_ROUTES),
-  ],
-  exports: [],
-  declarations: [
-    FlightCardComponent,
-    FlightSearchComponent,
-    FlightEditComponent,
-    PassengerSearchComponent,
-  ],
-  providers: [],
+    imports: [
+        CommonModule,
+        FormsModule,
+        SharedModule,
+        RouterModule.forChild(FLIGHT_BOOKING_ROUTES),
+        FlightCardComponent,
+        FlightSearchComponent,
+        FlightEditComponent,
+        PassengerSearchComponent,
+    ],
+    exports: [],
+    providers: [],
 })
 export class FlightBookingModule {}

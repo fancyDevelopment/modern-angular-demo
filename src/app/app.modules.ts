@@ -21,42 +21,40 @@ import { MatListModule } from '@angular/material/list';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    RouterModule.forRoot(APP_ROUTES, {
-      preloadingStrategy: PreloadAllModules,
-    }),
-    LayoutModule,
-    LoggerModule.forRoot({
-      level: LogLevel.DEBUG,
-      appenders: [DefaultLogAppender],
-      formatter: (level, cat, msg) => [level, cat, msg].join(';'),
-    }),
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    SharedModule
-  ],
-  declarations: [
-    AppComponent,
-    SidebarComponent,
-    NavbarComponent,
-    HomeComponent,
-    AboutComponent,
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: LegacyInterceptor,
-      multi: true,
-    },
-  ],
-  bootstrap: [
-    AppComponent
-  ]
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        RouterModule.forRoot(APP_ROUTES, {
+            preloadingStrategy: PreloadAllModules,
+        }),
+        LayoutModule,
+        LoggerModule.forRoot({
+            level: LogLevel.DEBUG,
+            appenders: [DefaultLogAppender],
+            formatter: (level, cat, msg) => [level, cat, msg].join(';'),
+        }),
+        MatToolbarModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        SharedModule,
+        SidebarComponent,
+        NavbarComponent,
+        HomeComponent,
+        AboutComponent
+    ],
+    declarations: [AppComponent],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: LegacyInterceptor,
+            multi: true,
+        },
+    ],
+    bootstrap: [
+        AppComponent
+    ]
 })
 export class AppModule {}
