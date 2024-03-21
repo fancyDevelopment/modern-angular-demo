@@ -1,4 +1,4 @@
-import { Component, inject, model, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, inject, model, OnInit, signal } from '@angular/core';
 import { Flight, FlightService } from '@demo/data';
 import { FlightCardComponent } from '../flight-card/flight-card.component';
 import { NgIf, NgFor, JsonPipe } from '@angular/common';
@@ -29,10 +29,16 @@ export class FlightSearchComponent implements OnInit {
 
   basket = signal<Record<number, boolean>>({});
 
+  route = computed(() => this.from() + ' - ' + this.to());
+
+  constructor() {
+    effect(() => this.search());
+  }
+
   ngOnInit(): void {}
 
   async search() {
-    if (!this.from || !this.to) return;
+    if (!this.from() || !this.to()) return;
 
     this.flights.set(await this.flightService.findWithPromise(this.from(), this.to()));
   }
