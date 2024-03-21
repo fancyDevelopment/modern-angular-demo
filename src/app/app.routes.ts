@@ -16,7 +16,7 @@ export const APP_ROUTES: Routes = [
     {
         path: 'flight-booking',
         canActivate: mapToCanActivate([AuthGuard]),
-        loadChildren: () => import('./booking/index').then(m => m.FLIGHT_BOOKING_ROUTES)
+        loadChildren: () => import('./booking/index')
     },
     {
         path: 'about',
