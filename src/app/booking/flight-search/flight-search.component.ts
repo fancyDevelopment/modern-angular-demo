@@ -5,6 +5,7 @@ import { NgIf, NgFor, JsonPipe } from '@angular/common';
 import { CityValidator } from '../../shared/city.validator';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/shared/auth.service';
+import { FlightSearchStore } from './flight-search.store';
 
 @Component({
     selector: 'flight-search',
@@ -20,36 +21,26 @@ import { AuthService } from 'src/app/shared/auth.service';
     ],
 })
 export class FlightSearchComponent implements OnInit {
-  private flightService = inject(FlightService);
+  private store = inject(FlightSearchStore);
 
-  from = model('Hamburg'); // in Germany
-  to = model('Graz'); // in Austria
-
-  flights = signal<Flight[]>([]);
-
-  basket = signal<Record<number, boolean>>({});
-
-  route = computed(() => this.from() + ' - ' + this.to());
-
-  constructor() {
-    effect(() => this.search());
-  }
+  from = this.store.from;
+  to = this.store.to;
+  flights = this.store.flights;
+  basket = this.store.basket;
+  route = this.store.route;
 
   ngOnInit(): void {}
 
   async search() {
     if (!this.from() || !this.to()) return;
-
-    this.flights.set(await this.flightService.findWithPromise(this.from(), this.to()));
+    this.store.loadFlights();
   }
 
   delay(): void {
-    const flight = this.flights()[0];
-    const date = new Date(flight.date);
+    this.store.delay();
+  }
 
-    date.setTime(date.getTime() + 1000 * 60 * 15);
-    flight.date = date.toISOString();
-
-    this.flights.set([ { ...flight }, ...this.flights().slice(1) ])
+  updateCriteria(from: string, to: string) {
+    this.store.updateCriteria(from, to);
   }
 }
