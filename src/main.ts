@@ -16,15 +16,14 @@ import { withPreloading, provideRouter, PreloadAllModules } from '@angular/route
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { authInterceptor } from './app/shared/legacy.interceptor';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideLogger } from './app/shared/logger/providers';
+import { withColor } from './app/shared/logger/features';
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(BrowserModule, LayoutModule, LoggerModule.forRoot({
-            level: LogLevel.DEBUG,
-            appenders: [DefaultLogAppender],
-            formatter: (level, cat, msg) => [level, cat, msg].join(';'),
-        }), MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule),
+        importProvidersFrom(BrowserModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule),
         provideAnimations(),
+        provideLogger({}, withColor()),
         provideHttpClient(withInterceptors([authInterceptor])),
         provideRouter(APP_ROUTES, withPreloading(PreloadAllModules))
     ]

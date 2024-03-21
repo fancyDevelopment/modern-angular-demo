@@ -4,6 +4,7 @@ import { Component, Inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shell/navbar/navbar.component';
 import { SidebarComponent } from './shell/sidebar/sidebar.component';
+import { provideLogger } from './shared/logger/providers';
 
 @Component({
     selector: 'app-root',
