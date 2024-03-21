@@ -4,6 +4,7 @@ import { FlightCardComponent } from '../flight-card/flight-card.component';
 import { NgIf, NgFor, JsonPipe } from '@angular/common';
 import { CityValidator } from '../../shared/city.validator';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from 'src/app/shared/auth.service';
 
 @Component({
     selector: 'flight-search',
