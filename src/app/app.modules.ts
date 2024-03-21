@@ -18,33 +18,32 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { SharedModule } from './shared/shared.module';
+
 
 @NgModule({
     imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        RouterModule.forRoot(APP_ROUTES, {
-            preloadingStrategy: PreloadAllModules,
-        }),
-        LayoutModule,
-        LoggerModule.forRoot({
-            level: LogLevel.DEBUG,
-            appenders: [DefaultLogAppender],
-            formatter: (level, cat, msg) => [level, cat, msg].join(';'),
-        }),
-        MatToolbarModule,
-        MatButtonModule,
-        MatSidenavModule,
-        MatIconModule,
-        MatListModule,
-        SharedModule,
-        SidebarComponent,
-        NavbarComponent,
-        HomeComponent,
-        AboutComponent
-    ],
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    RouterModule.forRoot(APP_ROUTES, {
+        preloadingStrategy: PreloadAllModules,
+    }),
+    LayoutModule,
+    LoggerModule.forRoot({
+        level: LogLevel.DEBUG,
+        appenders: [DefaultLogAppender],
+        formatter: (level, cat, msg) => [level, cat, msg].join(';'),
+    }),
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    SidebarComponent,
+    NavbarComponent,
+    HomeComponent,
+    AboutComponent
+],
     declarations: [AppComponent],
     providers: [
         {
