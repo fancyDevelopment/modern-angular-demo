@@ -1,3 +1,13 @@
 <h2 class="title">About</h2>
 
-© AngularArchitects.io 2023 
+@defer(on timer(2s)) {
+  <app-about-lazy />
+}
+@placeholder {
+  Placehoder
+}
+@loading {
+  Loading....
+}
+
+© AngularArchitects.io 2024
