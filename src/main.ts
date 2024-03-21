@@ -1,5 +1,5 @@
 
-import { platformBrowser, BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { importProvidersFrom } from '@angular/core';
 import { AppComponent } from './app/app.component';
 import { MatListModule } from '@angular/material/list';
@@ -14,8 +14,8 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { APP_ROUTES } from './app/app.routes';
 import { withPreloading, provideRouter, PreloadAllModules } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { LegacyInterceptor } from './app/shared/legacy.interceptor';
-import { HTTP_INTERCEPTORS, withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
+import { authInterceptor } from './app/shared/legacy.interceptor';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 bootstrapApplication(AppComponent, {
     providers: [
@@ -24,13 +24,8 @@ bootstrapApplication(AppComponent, {
             appenders: [DefaultLogAppender],
             formatter: (level, cat, msg) => [level, cat, msg].join(';'),
         }), MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule),
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: LegacyInterceptor,
-            multi: true,
-        },
         provideAnimations(),
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withInterceptors([authInterceptor])),
         provideRouter(APP_ROUTES, withPreloading(PreloadAllModules))
     ]
 });
