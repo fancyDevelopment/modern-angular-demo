@@ -1,10 +1,8 @@
-import { Component, computed, effect, inject, model, OnInit, signal } from '@angular/core';
-import { Flight, FlightService } from '@demo/data';
+import { Component, inject, OnInit } from '@angular/core';
 import { FlightCardComponent } from '../flight-card/flight-card.component';
 import { JsonPipe } from '@angular/common';
 import { CityValidator } from '../../shared/city.validator';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from 'src/app/shared/auth.service';
 import { FlightSearchStore } from './flight-search.store';
 
 @Component({
@@ -41,4 +39,10 @@ export class FlightSearchComponent implements OnInit {
   updateCriteria(from: string, to: string) {
     this.store.updateCriteria(from, to);
   }
+
+  setBasektState(id: number, state: boolean | undefined) {
+    this.store.setBasketState(id, state ?? false);
+  }
+
+
 }

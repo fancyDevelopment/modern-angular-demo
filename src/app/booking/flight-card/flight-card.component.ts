@@ -1,5 +1,5 @@
-import { CommonModule, NgClass, DatePipe } from "@angular/common";
-import { Component, ElementRef, EventEmitter, Input, NgZone, Output, inject } from "@angular/core";
+import { NgClass, DatePipe } from "@angular/common";
+import { Component, ElementRef, Input, NgZone, Output, effect, inject, input, model, output } from "@angular/core";
 import { Flight, initFlight } from "@demo/data";
 import { CityPipe } from "../../shared/city.pipe";
 import { RouterLink } from "@angular/router";
@@ -13,22 +13,22 @@ import { RouterLink } from "@angular/router";
 })
 export class FlightCardComponent {
   
-  @Input() item: Flight = initFlight;
-  @Input() selected: boolean | undefined;
-  @Output() selectedChange = new EventEmitter<boolean>();
-  @Input() showEditButton = true;
+  item = input<Flight>(initFlight);
+  selected = model<boolean | undefined>(undefined);
+  selectedChange = output<boolean>();
+  showEditButton = input(true);
 
   private element = inject(ElementRef);
   private zone = inject(NgZone);
   
   select() {
-    this.selected = true;
-    this.selectedChange.next(true);
+    this.selected.set(true);
+    this.selectedChange.emit(true);
   }
 
   deselect() {
-    this.selected = false;
-    this.selectedChange.next(false);
+    this.selected.set(false);
+    this.selectedChange.emit(false);
   }
 
   blink() {
