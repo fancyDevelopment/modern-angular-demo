@@ -1,7 +1,6 @@
 import { Routes, mapToCanActivate } from "@angular/router";
 import AboutComponent from "./about/about.component";
 import { HomeComponent } from "./home/home.component";
-import { AuthGuard, authGuard } from "./shared/auth.guard";
 import { inject } from "@angular/core";
 import { AuthService } from "./shared/auth.service";
 
